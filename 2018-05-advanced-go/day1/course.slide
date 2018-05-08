@@ -1,0 +1,113 @@
+Golang Advanced Course 1 - Infinity Wars
+Day 1 - Buenos Aires, Argentina
+15 May 2018
+Tags: golang, apis, http
+
+Eduardo Acosta Miguens
+eduardo.miguens@mercadolibre.com
+
+Fernando Russ
+fernando.russ@mercadolibre.com
+
+* Mini tour de Go
+
+.code example/example1.go /START 1/,/END 1/
+
+* Embedding, not Inheritance
+TODO: Codigo y hablamos
+
+* Interfaces
+- Cumplimiento implicito
+- Composicion de interfaces
+- Cambia la responsabilidad de lado
+
+* Interfaces Implicitas
+TODO: Codigo
+
+* Composicion de interfaces
+TODO: Codigo
+
+* Error handling
+Breve descripcion
+- error
+- panic
+
+* Error handling: error type
+TODO: Codigo
+
+* Error handling: panic
+TODO: Codigo (panic, recover)
+
+
+
+
+
+* Paralelismo vs Concurrencia
+
+* Paralelismo vs Concurrencia
+
+Texto de la charla, y link.
+Rob Pike (https://blog.golang.org/concurrency-is-not-parallelism)
+
+* Goroutines
+
+TODO: 
+- Descripcion de goroutine
+- Codigo
+- Diferencias con los threads
+
+* Patterns (multiple/one consumer, multiple/one producer)
+TODO: Cada pattern con titulo y codigo (2 o 3 patters)
+
+* Race condition
+TODO: Codigo roto
+
+* BEAK
+(foto de unas papitas)
+
+* Go synchronization primitives
+
+* Mutex (locks?)
+TODO:
+
+* atomic
+TODO:
+
+* channels
+TODO: Caveats (https://www.ardanlabs.com/blog/2017/10/the-behavior-of-channels.html)
+Mostramos el ejemplo fixeado
+
+* Concurrency Patterns (some...)
+
+* WaitGroups (https://golang.org/pkg/sync/#WaitGroup)
+TODO: Codigo
+
+* errgroup (https://godoc.org/golang.org/x/sync/errgroup)
+TODO: Codigo
+
+* context.Context: cancellation and message passing
+TODO: Codigo
+
+* sync.Map
+TODO: Codigo
+
+* Workshop
+
+* Nuestro Download Manager
+- Que es un download manager?
+- Que features queremos tener?
+
+* Downloads por HTTP
+
+* std net/http
+- Intro a la lib de HTTP de golang
+- accept range
+- content length
+
+* std io
+- package io
+- reader/writer
+- io.Copy
+
+* TAREA
+Investigar sobre test, benchmarks y examples.
