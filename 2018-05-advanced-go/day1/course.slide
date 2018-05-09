@@ -107,10 +107,24 @@ Rob Pike (https://blog.golang.org/concurrency-is-not-parallelism)
 
 * Goroutines
 
-TODO: 
-- Descripcion de goroutine
-- Codigo
-- Diferencias con los threads
+ go <callable>
+
+puede ser algo como:
+
+ go SlowProcessing()
+
+otra forma de usarlo es con closures,
+
+.code example/goroutines.go /START 1/,/END 1/
+
+* Goroutines (cont.)
+
+- NO! son threads.
+- Hay un scheduler por cada runtime de Go.
+- Son cooperativas.
+ runtime.Gosched() // <- buuu
+- En general todo el IO en Golang es async.
+
 
 * Patterns (multiple/one consumer, multiple/one producer)
 TODO: Cada pattern con titulo y codigo (2 o 3 patters)
@@ -120,11 +134,6 @@ TODO: Codigo roto
 
 * BREAK
 .image ../img/break.png
-
-
-
-
-
 
 * Go synchronization primitives
 
