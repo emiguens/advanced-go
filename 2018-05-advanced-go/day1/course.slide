@@ -16,9 +16,19 @@ fernando.russ@mercadolibre.com
 * Language Mechanics
 
 * Embedding, not Inheritance
-TODO: Codigo y hablamos
+
+.code example/embedding.go /START 1/,/END 1/
+
+su inicializacion,
+
+.code example/embedding.go /START 2/,/END 2/
+
+y el override de una función,
+.code example/embedding.go /START 3/,/END 3/
 
 * Interfaces
+
+
 - Cumplimiento implicito
 - Composicion de interfaces
 - Cambia la responsabilidad de lado
