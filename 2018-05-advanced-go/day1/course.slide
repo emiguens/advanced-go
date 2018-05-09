@@ -126,8 +126,40 @@ otra forma de usarlo es con closures,
 - En general todo el IO en Golang es async.
 
 
-* Patterns (multiple/one consumer, multiple/one producer)
-TODO: Cada pattern con titulo y codigo (2 o 3 patters)
+* Parallelism/Concurrency patterns
+
+* Single Producer / Multiple Consumers
+
+ // spawn N consumers
+ for consumerId := 0; consumerId < numberOfConsumers ; consumerId++ {    
+     go func(consumerId int, items chan Item) {
+         for item := range items {            
+             ProcessItem(consumerId, item)
+         }
+     }(consumerId, ch)
+ }
+
+ // producer
+ items <- Item{}
+ items <- Item{}
+ ...
+ close(items) 
+
+* Multiple Producer / Single Consumers
+
+ // spawn N producers
+ for producerId := 0; producerId < numberOfProducers; producerId++ {    
+     go func(producerId int, items chan Item) {
+         for shouldProduce { // Produce multiple item.        
+            items <- Item{}
+         }        
+     }(producerId, ch)
+ }
+
+ for item := range items {
+    ProcessItem(item)
+ }
+ 
 
 * Race condition
 TODO: Codigo roto
