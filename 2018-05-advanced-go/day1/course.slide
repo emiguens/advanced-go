@@ -49,7 +49,7 @@ y cumple con las tres interfaces puntuales
  func (d *algo) Read(p []bytes) (n int, err error)   // Reader 
  func (d *algo) Write(p []bytes) (n int, err error)  // Writer
  func (d *algo) Closer() error                       // Closer
- 
+
 * Error handling
 
 Si tenemos esta funcion:
@@ -63,28 +63,46 @@ Manejamos el error cuando la llamamos de esta manera:
      return fmt.Errorf("could not do something: %v", err)
  }
 
-Esto es un antipattern...
+Esto es un antipattern... (pero se utiliza)
 
  if err := doSomething(); err != nil {
     panic(err)
  }
 
 
-* Error handling: error type
-TODO: Codigo
+* Error handling: error values
+
+definamos unos errores custom:
+.code example/errs.go /START 1/,/END 1/
+
+el uso de esos errores:
+.code example/errs.go /START 2/,/END 2/
+
+entonces el error checking sería:
+.code example/errs.go /START 3/,/END 3/
+
+
+* Error handling: error type 
+
+definamos unos errores custom:
+.code example/errs.go /START 4/,/END 4/
+y cumple la interface error,
+.code example/errs.go /START 5/,/END 5/
+y entonces:
+.code example/errs.go /START 6/,/END 6/
 
 * Error handling: panic
 TODO: Codigo (panic, recover)
 
+.code example/errs.go /START 7/,/END 7/ HLxxx
 
-
-
-
-* Paralelismo vs Concurrencia
+No son exceptions!!!
 
 * Paralelismo vs Concurrencia
 
-Texto de la charla, y link.
+.image ../img/concurrency_parallelism.png              
+
+Una excelente charla!
 Rob Pike (https://blog.golang.org/concurrency-is-not-parallelism)
 
 * Goroutines
