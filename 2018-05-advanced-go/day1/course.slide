@@ -28,17 +28,28 @@ y el override de una función,
 
 * Interfaces
 
+ type Reader struct {
+     Read(p []bytes) (n int, err error)
+ }
 
-- Cumplimiento implicito
-- Composicion de interfaces
-- Cambia la responsabilidad de lado
+Lo cumple implicitamente cualquier función de la forma:
 
-* Interfaces Implicitas
-TODO: Codigo
+ func (d *algo) Read(p []bytes) (n int, err error)
 
-* Composicion de interfaces
-TODO: Codigo
+además, es posible definir una interfaz por composicion:
 
+ type ReaderWriterCloser struct {
+     Reader
+     Writer
+     Closer
+ }
+
+y cumple con las tres interfaces puntuales
+
+ func (d *algo) Read(p []bytes) (n int, err error)   // Reader 
+ func (d *algo) Write(p []bytes) (n int, err error)  // Writer
+ func (d *algo) Closer() error                       // Closer
+ 
 * Error handling
 
 Si tenemos esta funcion:
