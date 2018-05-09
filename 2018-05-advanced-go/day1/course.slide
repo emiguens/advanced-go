@@ -1,4 +1,4 @@
-Golang Advanced Course 1 - Infinity Wars
+Advanced Go
 Day 1 - Buenos Aires, Argentina
 15 May 2018
 Tags: golang, apis, http
@@ -12,6 +12,8 @@ fernando.russ@mercadolibre.com
 * Mini tour de Go
 
 .code example/example1.go /START 1/,/END 1/
+
+* Language Mechanics
 
 * Embedding, not Inheritance
 TODO: Codigo y hablamos
@@ -28,9 +30,24 @@ TODO: Codigo
 TODO: Codigo
 
 * Error handling
-Breve descripcion
-- error
-- panic
+
+Si tenemos esta funcion:
+
+ func doSomething() (int64, error)
+
+Manejamos el error cuando la llamamos de esta manera:
+
+ value, err := doSomething();
+ if err != nil {
+     return fmt.Errorf("could not do something: %v", err)
+ }
+
+Esto es un antipattern...
+
+ if err := doSomething(); err != nil {
+    panic(err)
+ }
+
 
 * Error handling: error type
 TODO: Codigo
