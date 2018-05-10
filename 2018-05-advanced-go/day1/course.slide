@@ -130,56 +130,58 @@ otra forma de usarlo es con closures,
 
 * Single Producer / Multiple Consumers
 
- // spawn N consumers
- for consumerId := 0; consumerId < numberOfConsumers ; consumerId++ {    
-     go func(consumerId int, items chan Item) {
-         for item := range items {            
-             ProcessItem(consumerId, item)
-         }
-     }(consumerId, ch)
- }
-
- // producer
- items <- Item{}
- items <- Item{}
- ...
- close(items) 
+.code example/patterns.go /START 1/,/END 1/ HLxxx
 
 * Multiple Producer / Single Consumers
-
- // spawn N producers
- for producerId := 0; producerId < numberOfProducers; producerId++ {    
-     go func(producerId int, items chan Item) {
-         for shouldProduce { // Produce multiple item.        
-            items <- Item{}
-         }        
-     }(producerId, ch)
- }
-
- for item := range items {
-    ProcessItem(item)
- }
  
+.code example/patterns.go /START 2/,/END 2/ HLxxx
+
+💩 Esto nunca termina. Por que ?
+
+* Vamos a un break
+.image ../img/break.png
+
+
+* Multiple Producer / Single Consumers (fixed)
+.code example/patterns.go /START 3/,/END 3/ HLxxx
 
 * Race condition
-TODO: Codigo roto
 
-* BREAK
-.image ../img/break.png
+.code example/race_test.go /START 1/,/END 1/
+
+* Race condition (cont.)
+
+.code example/race_test.go /START 1/,/END 1/ HLxxx
 
 * Go synchronization primitives
 
-* Mutex (locks?)
-TODO:
+* Mutex
+Fixeado con un mutex
+.code example/sync_primitives_test.go /START 1/,/END 1/ HLxxx
 
-* atomic
-TODO:
+* Mutex (como pattern)
+Supongamos esta struct de fantasia (claramente no es concurrent-safe),
+.code example/sync_primitives_test.go /START 2/,/END 2/ HLxxx
 
-* channels
-TODO: Caveats (https://www.ardanlabs.com/blog/2017/10/the-behavior-of-channels.html)
-Mostramos el ejemplo fixeado
+Componemos con sync.Mutex, 
+.code example/sync_primitives_test.go /START 3/,/END 3/ HLxxx
 
-* Concurrency Patterns (some...)
+Ahora, Stats es lockable
+.code example/sync_primitives_test.go /START 4/,/END 4/ HLxxx
+
+* Atomic
+Fixeado con atomics
+.code example/sync_primitives_test.go /START 5/,/END 5/ HLxxx
+
+* Channels
+
+Y con channels? como prodíamos implementarlo?
+
+* Channels (una forma)
+.code example/sync_primitives_test.go /START 6/,/END 6/ HLxxx
+
+
+* Synchronization Patterns (some...)
 
 * WaitGroups (https://golang.org/pkg/sync/#WaitGroup)
 TODO: Codigo
