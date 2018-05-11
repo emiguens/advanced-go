@@ -1,6 +1,7 @@
 package sync_primitives_test
 
 import (
+	"golang.org/x/sync/errgroup"
 	"sync"
 	"sync/atomic"
 	"testing"
@@ -102,3 +103,34 @@ func TestRaceCounterWithChannels(t *testing.T) {
 }
 
 // END 6 OMIT
+
+
+// START 7 OMIT
+func TestRaceCounterWaitGroups(t *testing.T) {
+	var wg sync.WaitGroup{} // HLxxx
+	for n := 0; n < 100; n++ {
+		wg.Add(1) // HLxxx
+		go func() {
+			defer wg.Donw() // HLxxx
+
+			HeaveTask()
+		}()
+	}
+	wg.Wait() // HLxxx
+}
+// END 7 OMIT
+
+// START 8 OMIT
+func TestRaceCounterErrGroups(t *testing.T) {
+	var eg errgroup.Group{}  // HLxxx
+
+	for n := 0; n < 100; n++ {
+		eg.Go(func() error {  // HLxxx
+			return nil
+		})
+	}
+	if err := eg.Wait(); err != nil {  // HLxxx
+		panic(err)
+	}
+}
+// END 8 OMIT

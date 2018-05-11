@@ -113,15 +113,15 @@ puede ser algo como:
 
  go SlowProcessing()
 
-otra forma de usarlo es con closures,
+otro pattern es utilizando closures,
 
 .code example/goroutines.go /START 1/,/END 1/
 
 * Goroutines (cont.)
 
-- NO! son threads.
+- *NO!*  son threads.
 - Hay un scheduler por cada runtime de Go.
-- Son cooperativas.
+- Son cooperativas (yield).
  runtime.Gosched() // <- buuu
 - En general todo el IO en Golang es async.
 
@@ -136,11 +136,10 @@ otra forma de usarlo es con closures,
  
 .code example/patterns.go /START 2/,/END 2/ HLxxx
 
-💩 Esto nunca termina. Por que ?
+💩 Esto *nunca* termina. Por que ?
 
 * Vamos a un break
 .image ../img/break.png
-
 
 * Multiple Producer / Single Consumers (fixed)
 .code example/patterns.go /START 3/,/END 3/ HLxxx
@@ -177,23 +176,79 @@ Fixeado con atomics
 
 Y con channels? como prodíamos implementarlo?
 
-* Channels (una forma)
+* Channels (fixed de una forma)
 .code example/sync_primitives_test.go /START 6/,/END 6/ HLxxx
+
+* Channels (algunos detalles)
+
+- Estan escritos en Go ❤️
+.link https://github.com/golang/go/blob/master/src/runtime/chan.go
+
+- Son queues *MultipleProducer/MultipleConsumer*
+- Pueden ser *buffered*/*unbuffered*
+
+ unbuffered := make(chan int) // unbuffered
+ buffered := make(chan int, bufferingSize) // unbuffered
+
+
+Genera un *panics* cuando:
+
+- hay un write en un channel cerrado
+- se hace close más de una vez
+
+
+* Channels (cont.)
+
+Escritura no bloqueante,
+.code example/channels_test.go /START 1/,/END 1/ HLxxx
+ 
+Leactura no bloqueante,
+.code example/channels_test.go /START 2/,/END 2/ HLxxx
 
 
 * Synchronization Patterns (some...)
 
-* WaitGroups (https://golang.org/pkg/sync/#WaitGroup)
-TODO: Codigo
+* WaitGroups    
 
-* errgroup (https://godoc.org/golang.org/x/sync/errgroup)
-TODO: Codigo
+Count latch para esperar sincronizado por una cantidad de trabajos realizados.
 
-* context.Context: cancellation and message passing
-TODO: Codigo
+.code example/sync_primitives_test.go /START 7/,/END 7/ HLxxx
 
-* sync.Map
-TODO: Codigo
+Permite implementar *fork&join* muy facilmente.
+
+.link https://golang.org/pkg/sync/#WaitGroup
+
+* errgroup
+
+Count latch con finalizacion temprana por error.
+
+.code example/sync_primitives_test.go /START 8/,/END 8/ HLxxx
+
+Permite implementar *fork&join* mientras ninguna tarea de error (*fail* *fast*)
+
+.link https://godoc.org/golang.org/x/sync/errgroup
+
+* context.Context
+
+ "Package context defines the Context type, which carries deadlines, 
+ cancelation signals, and other request-scoped values across API 
+ boundaries and between processes."
+
+
+* context.Context: values
+
+Es posible utilizaro para transportar información de contexto,
+.code example/context_test.go /START 3/,/END 3/ HLxxx
+ 
+* context.Context: cancellation
+
+Como cancelar un contexto,
+
+.code example/context_test.go /START 1/,/END 1/ HLxxx
+
+* context.Context: deadlines
+Para especificar un tiempo máximo de ejecución,
+.code example/context_test.go /START 2/,/END 2/ HLxxx
 
 * Workshop
 
