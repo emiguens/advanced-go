@@ -250,23 +250,60 @@ Como cancelar un contexto,
 Para especificar un tiempo máximo de ejecución,
 .code example/context_test.go /START 2/,/END 2/ HLxxx
 
-* Workshop
 
-* Nuestro Download Manager
-- Que es un download manager?
-- Que features queremos tener?
+* Workshop (objetivos)
+
+* Construir un Download Manager
+
+- Descargar file via HTTP de forma segmentada
+- Continuar una descarga interrumpida
+- Descargar el mismo file de multiples
 
 * Downloads por HTTP
 
 * std net/http
-- Intro a la lib de HTTP de golang
-- accept range
-- content length
+ import "net/http"
+
+La libreria standard de Go para HTTP es extremadamente buena. ️️️️️️❤️
+
+.link https://golang.org/pkg/net/http/
+
+Ejemplo muy básico:
+
+    resp, err := http.Get("http://example.com/")
+    if err != nil {
+        // handle error
+    }
+    defer resp.Body.Close()
+    body, err := ioutil.ReadAll(resp.Body)
+    // ...
+
+* Descargas parciales por HTTP
+
+Un server que soporta rangos, envia un header *Accept-Ranges*,
+
+ Accept-Ranges: bytes
+
+Se utiliza el header *Range*,
+
+ Range: bytes=100-2534
+
+Si el server acepta el request retorna,
+
+ 206 Partial Content
+
+y un header *Content-Range*,
+
+ Content-Range: bytes 100-2534/112233
 
 * std io
-- package io
-- reader/writer
-- io.Copy
+ import "io"
 
-* TAREA
-Investigar sobre test, benchmarks y examples.
+La libreria de IO de Go  ️️️️️️❤️
+
+- Interfaz para menjar streams de lectura y escrituras
+- Varios patterns/suites para facilitar el uso
+
+Por ejemploe, copiar de un Reader a un Writer
+ 
+ io.Copy(dst, src)
