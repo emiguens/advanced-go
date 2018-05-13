@@ -321,3 +321,22 @@ Abrir un file:
  os.OpenFile(...) (*os.File, error)
 
 os.File implementa io.Reader e io.Writer
+
+* Machete
+
+ // Usando el http.DefaultClient
+ http.Get(...)
+
+ // O usamos un cliente custom 
+ client := http.Client{}
+
+ req, err := http.NewRequest(...)
+ req.Headers.Add(...) // nos permite agregar headers a la request
+ 
+ res, err := client.Do(req)
+
+ // Abrir un file en disco
+ os.OpenFile(...)
+
+ // Copiar de un io.Reader a un io.Writer
+ io.Copy(...)
