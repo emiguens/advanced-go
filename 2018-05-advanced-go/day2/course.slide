@@ -1,0 +1,69 @@
+Advanced Go
+Day 2 - Buenos Aires, Argentina
+17 May 2018
+Tags: golang, apis, http
+
+Eduardo Acosta Miguens
+eduardo.miguens@mercadolibre.com
+
+Fernando Russ
+fernando.russ@mercadolibre.com
+
+* Wrap-up day 1
+
+* Testing APIs / Idioms 
+
+ import "testing"
+
+Golang tiene cierto soporte de test en la standard library,
+
+Todas las funciones de un archivo con sufijo *_test.go* y que tengan la firma:
+
+ func Test___(*testing.T)
+
+Se consideran tests, se buildean y ejecutan solo con:
+
+ go test // ejecuta todos los tests del package actual
+
+
+* Testing APIs / Idioms (cont.)
+
+- Los tests corren muuuy rapido. ️️️❤️
+- *No* es facil hacer mocks auto-mágicos. 😢
+- Hay que codear pensando en testing. *(testiability)*
+
+
+* Benchmarks / Profiling
+
+ import "testing"
+
+Golang tiene benchmarking nativo por sampling, sigue la regla de los test, pero
+
+ func Benchmark___(*testing.b)
+
+y un número de iteraciones que se debe ejecutar,
+
+ func BenchmarkHeavy(b *testing.B) {
+    for i := 0; i < b.N; i++ {
+        DoSomeTask()
+    }
+ }
+
+*Es*clave* realizar benchmarks antes de cualquier refactor por performance.❗
+
+* Vamos a un break
+.image img/break.png
+
+* Workshop (features)
+
+* Algunas ideas
+
+- Como manejamos la metadata ?
+- Soporte para multiples protocolos
+- Convertir nuestro código en una lib.
+- Vamos a componentizar nuestro código.
+
+*Hints*
+
+- Separation of duties ➡️ Interfaces
+- Coupling & Composability ➡️  Idiomatic design
