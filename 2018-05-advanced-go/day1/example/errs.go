@@ -7,30 +7,30 @@ import (
 
 // START 1 OMIT
 var (
-	FileNotFoundError = errors.New("file not found")
-	NetworkError      = errors.New("network error")
+	ErrFileNotFound = errors.New("file not found")
+	ErrNetwork      = errors.New("network error")
 )
 
 // END 1 OMIT
 
 // START 2 OMIT
 func SomeFunction(argument string) error {
-	//return FileNotFoundError
-	return FileNotFound{filename: argument}
+	//return ErrFileNotFound
+	return FileNotFound{Filename: argument}
 }
 
 // END 2 OMIT
 
 // START 4 OMIT
 type FileNotFound struct {
-	filename string
+	Filename string
 }
 
 // END 4 OMIT
 
 // START 5 OMIT
 func (f FileNotFound) Error() string {
-	return fmt.Sprintf("filename: %s", f.filename)
+	return fmt.Sprintf("filename: %s", f.Filename)
 }
 
 // END 5 OMIT
@@ -40,9 +40,9 @@ func main() {
 	// START 3 OMIT
 	err := SomeFunction("argument")
 	switch err {
-	case FileNotFoundError:
+	case ErrFileNotFound:
 		//...
-	case NetworkError:
+	case ErrNetwork:
 		//...
 	}
 	fmt.Printf("%s\n", err)
@@ -53,6 +53,9 @@ func main() {
 func main2() {
 	// START 6 OMIT
 	if err := SomeFunction("argument"); err != nil {
+		if ferr, ok := err.(FileNotFound); ok {
+			f.Printf("%s\n", ferr.Filename)
+		}
 		fmt.Printf("%s\n", err)
 	}
 

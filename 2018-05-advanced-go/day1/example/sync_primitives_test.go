@@ -24,8 +24,8 @@ func TestRaceCounterFixed(t *testing.T) {
 		}(producerId)
 	}
 	wg.Wait()           // wait for the N producers
-	if *counter != 10 { // check spected value
-		panic("counter failed.")
+	if *counter != 10 { // check expected value
+		t.Fatal("counter failed.")
 	}
 }
 
@@ -71,7 +71,7 @@ func TestRaceCounter(t *testing.T) {
 	}
 	wg.Wait()                            // wait for the N producers
 	if atomic.LoadInt32(counter) != 10 { // HLxxx
-		panic("counter failed.")
+		t.Fatal("counter failed.")
 	}
 }
 
@@ -98,7 +98,7 @@ func TestRaceCounterWithChannels(t *testing.T) {
 		counter = counter + increment // HLxxx
 	} // HLxxx
 	if counter != 10 {
-		panic("counter failed.")
+		t.Fatal("counter failed.")
 	}
 }
 
@@ -111,9 +111,9 @@ func TestRaceCounterWaitGroups(t *testing.T) {
 	for n := 0; n < 100; n++ {
 		wg.Add(1) // HLxxx
 		go func() {
-			defer wg.Donw() // HLxxx
+			defer wg.Done() // HLxxx
 
-			HeaveTask()
+			HeavyTask()
 		}()
 	}
 	wg.Wait() // HLxxx
@@ -130,7 +130,7 @@ func TestRaceCounterErrGroups(t *testing.T) {
 		})
 	}
 	if err := eg.Wait(); err != nil {  // HLxxx
-		panic(err)
+		t.Fatal(err)
 	}
 }
 // END 8 OMIT

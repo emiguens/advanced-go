@@ -40,8 +40,10 @@ func TestContextWithDeadline(t *testing.T) {
 
 	// START 2 OMIT
 	ctx, cancel := context.WithDeadline(context.Background(), time.Now().Add(30*time.Second)) // HLxxx
+
 	go func() {
 		defer wg.Done()
+
 		select {
 		case <-ctx.Done(): // HLxxx
 			fmt.Printf("deadline!\n")
@@ -49,6 +51,7 @@ func TestContextWithDeadline(t *testing.T) {
 			SomeTask(value)
 		}
 	}()
+
 	wg.Wait()
 	// END 2 OMIT
 

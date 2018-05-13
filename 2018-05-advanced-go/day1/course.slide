@@ -100,10 +100,12 @@ No son exceptions!!!
 
 * Paralelismo vs Concurrencia
 
-.image ../img/concurrency_parallelism.png              
+.image img/concurrency_parallelism.png              
 
 Una excelente charla!
-Rob Pike (https://blog.golang.org/concurrency-is-not-parallelism)
+
+Rob Pike (Co-Creador de Go)
+.link https://blog.golang.org/concurrency-is-not-parallelism
 
 * Goroutines
 
@@ -139,7 +141,7 @@ otro pattern es utilizando closures,
 💩 Esto *nunca* termina. Por que ?
 
 * Vamos a un break
-.image ../img/break.png
+.image img/break.png
 
 * Multiple Producer / Single Consumers (fixed)
 .code example/patterns.go /START 3/,/END 3/ HLxxx
@@ -188,21 +190,24 @@ Y con channels? como prodíamos implementarlo?
 - Pueden ser *buffered*/*unbuffered*
 
  unbuffered := make(chan int) // unbuffered
- buffered := make(chan int, bufferingSize) // unbuffered
+ buffered := make(chan int, bufferSize) // buffered
 
 
-Genera un *panics* cuando:
+Genera *panic()* cuando:
 
-- hay un write en un channel cerrado
-- se hace close más de una vez
+- Hay un write en un channel cerrado
+- Se hace close más de una vez
+
+Material adicional:
+.link https://www.ardanlabs.com/blog/2017/10/the-behavior-of-channels.html
 
 
 * Channels (cont.)
 
-Escritura no bloqueante,
+Escritura no bloqueante:
 .code example/channels_test.go /START 1/,/END 1/ HLxxx
  
-Leactura no bloqueante,
+Lectura no bloqueante:
 .code example/channels_test.go /START 2/,/END 2/ HLxxx
 
 
@@ -257,7 +262,7 @@ Para especificar un tiempo máximo de ejecución,
 
 - Descargar file via HTTP de forma segmentada
 - Continuar una descarga interrumpida
-- Descargar el mismo file de multiples
+- Descargar el mismo file de multiples fuentes
 
 * Downloads por HTTP
 
@@ -266,16 +271,17 @@ Para especificar un tiempo máximo de ejecución,
 
 La libreria standard de Go para HTTP es extremadamente buena. ️️️️️️❤️
 
-.link https://golang.org/pkg/net/http/
+.link https://godoc.org/net/http/
 
 Ejemplo muy básico:
 
-    resp, err := http.Get("http://example.com/")
+    res, err := http.Get("http://example.com/")
     if err != nil {
         // handle error
     }
-    defer resp.Body.Close()
-    body, err := ioutil.ReadAll(resp.Body)
+    // res.Body implementa io.ReadCloser
+    defer res.Body.Close()
+    body, err := ioutil.ReadAll(res.Body)
     // ...
 
 * Descargas parciales por HTTP
@@ -301,9 +307,17 @@ y un header *Content-Range*,
 
 La libreria de IO de Go  ️️️️️️❤️
 
-- Interfaz para menjar streams de lectura y escrituras
+.link https://godoc.org/io/
+
+- Interfaz para manejar streams de lectura y escrituras
 - Varios patterns/suites para facilitar el uso
 
-Por ejemploe, copiar de un Reader a un Writer
+Por ejemplo, copiar de un Reader a un Writer
  
- io.Copy(dst, src)
+ n, err := io.Copy(dst, src)
+
+Abrir un file:
+ 
+ os.OpenFile(...) (*os.File, error)
+
+os.File implementa io.Reader e io.Writer

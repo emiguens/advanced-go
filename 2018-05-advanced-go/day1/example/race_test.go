@@ -22,9 +22,10 @@ func TestRaceCounter(t *testing.T) {
 
 	// wait for the N producers
 	wg.Wait()
-	// check spected value
+
+	// check expected value
 	if *counter != 10 {
-		panic("counter failed.")
+		t.Fatal("counter failed.")
 	}
 }
 

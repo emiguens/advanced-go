@@ -9,16 +9,16 @@ func TestBlockingChannel(t *testing.T) {
 	case ch <- 42: // HLxxx
 		// non-blocking write
 	default:
-		// habria bloqueao
+		// sin default habría bloqueao
 	}
 	// END 1 OMIT
 
 	// START 2 OMIT
 	select {
 	case value := <-ch: // HLxxx
-		// non-blocking write
+		// non-blocking read
 	default:
-		// habria bloqueao
+		// sin default habría bloqueao
 	}
 	// END 2 OMIT
 }
