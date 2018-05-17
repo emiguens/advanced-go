@@ -150,18 +150,25 @@ y un número de iteraciones que se debe ejecutar,
 *Es*clave* realizar benchmarks antes de cualquier refactor por performance.❗
 
 * Vamos a un break
-.image img/break.png
+.image ../day1/img/break.png
 
-* Workshop (features)
+* Workshop
 
 * Algunas ideas
 
-- Como manejamos la metadata ?
-- Soporte para multiples protocolos
-- Convertir nuestro código en una lib.
+- Como escribimos al file en paralelo?
 - Vamos a componentizar nuestro código.
+- Como medimos/mostramos progreso?
+- Agregamos tests! https://github.com/jarcoal/httpmock
+- Convertir nuestro código en una lib.
 
 *Hints*
 
 - Separation of duties ➡️ Interfaces
 - Coupling & Composability ➡️  Idiomatic design
+
+* Tarea
+
+- Convertir nuestro código en una lib (pensando en un server multi downloads)
+- Como manejamos la metadata? Que hacemos si se muere una request?
+- Soporte para multiples protocolos ademas de HTTP
