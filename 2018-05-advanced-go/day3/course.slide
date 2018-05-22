@@ -34,6 +34,9 @@ para compilarlo:
 se utiliza de la siguiente forma:
 .code example/plugin/main.go /START 1/,/END 1/ HLxxx
 
+* Vamos a un break (por favor 🙏)
+.image img/break.png
+
 
 * Diseño de un servicio
 
@@ -76,11 +79,15 @@ se utiliza de la siguiente forma:
 
 .code example/serialize_protobuf3_test.go /START 1/,/END 1/ HLxxx
 
-
 * Transportes / RPCs
 
-* REST (http)
-- nativo
+* REST (json+http)
+ 
+.image img/gopher.jpg
 
 * gRPC
 - Protobuf3 + HTTP/2 + ️️❤️
+
+ https://developers.google.com/protocol-buffers/
+
+.image img/grpc.jpeg
